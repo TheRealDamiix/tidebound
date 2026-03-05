@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-ocean-deep text-sand-light;
+    font-family: 'IM Fell English', serif;
+  }
+
+  body {
+    @apply min-h-screen overflow-x-hidden;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(10, 30, 80, 0.8) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(5, 15, 50, 0.9) 0%, transparent 60%),
+      theme('colors.ocean.deep');
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+  ::-webkit-scrollbar-thumb { background: theme('colors.gold.DEFAULT'); border-radius: 2px; }
+}
+
+@layer components {
+  .panel {
+    @apply relative overflow-hidden border border-gold/25;
+    background: linear-gradient(180deg, rgba(10, 22, 55, 0.95) 0%, rgba(8, 16, 40, 0.98) 100%);
+  }
+
+  .panel::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-0.5 opacity-60;
+    background: linear-gradient(90deg, transparent, theme('colors.gold.DEFAULT'), transparent);
+  }
+
+  .panel-title {
+    @apply font-heading text-[0.7rem] font-bold tracking-[3px] uppercase text-gold
+           mb-3 pb-2 border-b border-gold/20;
+  }
+
+  .btn-primary {
+    @apply font-heading font-bold tracking-wider uppercase
+           px-4 py-2 border rounded cursor-pointer
+           transition-all duration-200
+           hover:-translate-y-0.5 active:translate-y-0;
+  }
+}

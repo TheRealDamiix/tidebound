@@ -1,0 +1,23 @@
+{
+  "name": "tidebound",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Tidebound — Caribbean pirate trading MMO",
+  "scripts": {
+    "dev": "pnpm --parallel --filter './apps/*' dev",
+    "build": "pnpm --filter './packages/*' build && pnpm --filter './apps/*' build",
+    "lint": "pnpm --recursive lint",
+    "typecheck": "pnpm --recursive typecheck",
+    "test": "pnpm --recursive test",
+    "clean": "pnpm --recursive exec rm -rf dist node_modules .turbo"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.18.0",
+    "pg": "^8.20.0",
+    "ts-node": "^10.9.2"
+  }
+}
