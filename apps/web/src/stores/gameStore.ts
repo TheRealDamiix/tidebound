@@ -100,11 +100,12 @@ export interface GameState {
 }
 
 let logId = 0
-const mkLog = (type: LogEntry['type'], text: string, month: number): LogEntry => ({
+// day is optional — omit it for live events (random), pass it for fixed seed entries
+const mkLog = (type: LogEntry['type'], text: string, month: number, day?: number): LogEntry => ({
   id: logId++,
   type,
   text,
-  date: `${MONTHS[month].slice(0, 3)} ${1 + Math.floor(Math.random() * 28)}`,
+  date: `${MONTHS[month].slice(0, 3)} ${day ?? (1 + Math.floor(Math.random() * 28))}`,
 })
 
 const EVENTS = [
@@ -153,10 +154,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   currentPort: 0,
   inventory: [],
   log: [
-    mkLog('travel', 'Dropped anchor at Port Royal. The stench of tar and opportunity fills the air.', 8),
-    mkLog('trade', 'Sold 8 barrels of rum to a merchant in Havana for 640 gold. Fine profit!', 7),
-    mkLog('event', 'A strange fog — found a derelict ship. Claimed 200 gold from the wreck.', 7),
-    mkLog('combat', 'Intercepted a Spanish galleon. Took their spices and left them adrift.', 7),
+    mkLog('travel', 'Dropped anchor at Port Royal. The stench of tar and opportunity fills the air.', 8, 14),
+    mkLog('trade',  'Sold 8 barrels of rum to a merchant in Havana for 640 gold. Fine profit!', 7, 28),
+    mkLog('event',  'A strange fog — found a derelict ship. Claimed 200 gold from the wreck.', 7, 15),
+    mkLog('combat', 'Intercepted a Spanish galleon. Took their spices and left them adrift.', 7, 3),
   ],
   toast: null,
   battle: null,

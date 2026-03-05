@@ -1,0 +1,19 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pnpm --filter @tidebound/shared build && pnpm --filter @tidebound/server build"
+
+[deploy]
+startCommand = "node apps/server/dist/index.js"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# ── Required environment variables ──────────────────────────────────────────
+# Set these in the Railway dashboard under your service → Variables:
+#
+#   PORT                    (Railway sets this automatically)
+#   NODE_ENV                production
+#   SUPABASE_URL            https://wnhnumlsnekzlsfhqeii.supabase.co
+#   SUPABASE_SERVICE_ROLE_KEY  <your service role key>
+#   JWT_SECRET              <random secret, min 32 chars>
+#   CORS_ORIGIN             https://your-vercel-app.vercel.app
+#   REDIS_URL               (auto-set if you add a Railway Redis service)

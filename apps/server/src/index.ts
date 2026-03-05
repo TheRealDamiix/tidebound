@@ -5,7 +5,7 @@ import helmet from '@fastify/helmet'
 import { Server } from 'socket.io'
 import { createServer } from 'http'
 
-import { redis } from './lib/redis.js'
+import { redis, connectRedis } from './lib/redis.js'
 import { supabase } from './lib/supabase.js'
 import { registerRoutes } from './routes/index.js'
 import { registerSocketHandlers } from './sockets/index.js'
@@ -14,6 +14,9 @@ const PORT = Number(process.env.PORT ?? 4000)
 const CORS_ORIGIN = process.env.CORS_ORIGIN ?? 'http://localhost:3000'
 
 async function bootstrap() {
+  // ── Redis (non-fatal — server starts even if Redis is down) ───
+  await connectRedis()
+
   // ── Fastify ──────────────────────────────────
   const app = Fastify({ logger: { level: 'info' } })
 

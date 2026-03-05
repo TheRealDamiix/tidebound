@@ -8,7 +8,7 @@ export default function GameHUD() {
   return (
     <div className="flex items-center justify-between px-4 py-2 bg-black/40 border-b border-gold/20 flex-wrap gap-2">
       <div className="text-gold font-heading font-bold tracking-widest text-sm uppercase">
-        ⚓ Sea <span className="text-white">Devils</span> Tycoon
+        ⚓ <span className="text-white">Tidebound</span>
       </div>
 
       <div className="flex gap-3 flex-wrap">

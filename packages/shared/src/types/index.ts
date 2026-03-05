@@ -199,18 +199,20 @@ export interface WorldEvent {
 }
 
 // ── WebSocket Payloads ─────────────────────────
+// Socket.io v4 requires event maps to use function signatures, not plain types.
+
 // Client → Server
 export interface WS_ClientToServer {
-  'battle:action': BattleActionPayload
-  'player:sail': { destinationPortId: PortId }
-  'player:join_port': { portId: PortId }
+  'battle:action':    (payload: BattleActionPayload) => void
+  'player:sail':      (payload: { destinationPortId: PortId }) => void
+  'player:join_port': (payload: { portId: PortId }) => void
 }
 
 // Server → Client
 export interface WS_ServerToClient {
-  'battle:turn_result': BattleTurnResult
-  'battle:end': BattleEndResult
-  'market:price_update': PortMarketPrice[]
-  'world:event': WorldEvent
-  'player:state_sync': Partial<Player>
+  'battle:turn_result': (result: BattleTurnResult) => void
+  'battle:end':         (result: BattleEndResult) => void
+  'market:price_update':(prices: PortMarketPrice[]) => void
+  'world:event':        (event: WorldEvent) => void
+  'player:state_sync':  (patch: Partial<Player>) => void
 }

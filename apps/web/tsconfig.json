@@ -9,7 +9,10 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noEmit": true
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "noUncheckedIndexedAccess": false,
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }

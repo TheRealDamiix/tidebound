@@ -1,4 +1,4 @@
-import type { Good, Faction, FactionId, Port } from './types/index.js'
+import type { Good, Faction, FactionId, Port } from '../types/index.js'
 
 // ── Factions ──────────────────────────────────
 export const FACTIONS: Record<FactionId, Faction> = {

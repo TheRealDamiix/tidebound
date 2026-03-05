@@ -43,10 +43,23 @@ export interface GameEvent {
   choices: EventChoice[]
 }
 
+// Seeded deterministic RNG — same seed always produces the same value.
+// We use Math.sin() as a quick hash; good enough for price variance.
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed + 1) * 10000
+  return x - Math.floor(x)
+}
+
+// Prices are stable within a 4-hour window so they don't change on refresh.
+// The window advances every 4 hours in sync with the server market tick.
+const PRICE_WINDOW_MS = 4 * 60 * 60 * 1000
+
 export function getPortPrices(portIdx: number): number[] {
-  return PORTS[portIdx].goods.map(gIdx => {
+  const windowSeed = Math.floor(Date.now() / PRICE_WINDOW_MS)
+  return PORTS[portIdx].goods.map((gIdx, slotIdx) => {
     const good = GOODS[gIdx]
-    const variance = 1 + (Math.random() - 0.5) * good.volatility * 2
+    const seed = windowSeed * 10_000 + portIdx * 100 + slotIdx
+    const variance = 1 + (seededRandom(seed) - 0.5) * good.volatility * 2
     return Math.round(good.basePrice * variance)
   })
 }
